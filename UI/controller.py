@@ -18,7 +18,28 @@ class Controller:
         self.genere_selezionato = None
 
     # POPOLA DROPDOWN
-    # TODO
+    def popola_biblioteca_dropdown(self):
+        dd_biblioteca = self._view.dropdown_biblioteca
+        dd_biblioteca.options.append(ft.DropdownOption(key = "Nessun filtro", text = "Nessun filtro"))
+
+        biblioteche = self._model.get_biblioteche() #prendo tutte le biblioteche dal database
+
+        for biblioteca in biblioteche:
+            dd_biblioteca.options.append(ft.DropdownOption(key = str(biblioteca.id), text = biblioteca.nome))
+
+        print("opzioni biblioteche aggiunte")
+        self._view.update()
+
+    def popola_genere_dropdown(self):
+        dd_genere = self._view.dropdown_genere
+        dd_genere.options.append(ft.DropdownOption(key = "Nessun filtro", text = "Nessun filtro"))
+
+        generi = self._model.get_generi()
+        for genere in generi:
+            dd_genere.options.append(ft.DropdownOption(key = genere, text = genere))
+
+        print("opzioni generi aggiunte")
+        self._view.update()
 
     # CALLBACKS DROPDOWN
     # TODO
