@@ -31,3 +31,26 @@ class LibroDAO:
         cnx.close()
 
         return lista_generi
+
+    def restituisci_libri_filtrati(self, biblioteca, genere):
+        cnx = DBConnect.get_connection()
+        cursore = cnx.cursor()
+
+        query = """
+                SELECT `id`, `titolo` ,`autore`, `genere`, `anno_pubblicazione`, `id_biblioteca`
+                FROM libro
+                    WHERE id_biblioteca = COALESCE(%s, id_biblioteca)
+                    AND genere = COALESCE(%s, genere)
+                """
+
+        cursore.execute(query, (biblioteca, genere))
+
+        libri_filtrati = []
+        for record in cursore:
+            libro = Libro(record[0], record[1], record[2], record[3], record[4], record[5])
+            libri_filtrati.append(libro)
+
+        cursore.close()
+        cnx.close()
+
+        return libri_filtrati

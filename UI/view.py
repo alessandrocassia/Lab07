@@ -30,6 +30,9 @@ class View:
     def update(self):
         self.page.update()
 
+    def clean(self):
+        self.listview.controls.clear()
+
     def load_interface(self):
         """ Crea e aggiunge gli elementi di UI alla pagina e la aggiorna. """
         # --- Sezione 1: Intestazione ---
@@ -40,11 +43,13 @@ class View:
 
         self.dropdown_biblioteca = ft.Dropdown(width = 400,
                                                label = "Biblioteca",
-                                               options =[])
+                                               options =[],
+                                               on_select = self.controller.leggi_biblioteca)
 
         self.dropdown_genere = ft.Dropdown(width = 200,
                                            label = "Genere",
-                                           options = [])
+                                           options = [],
+                                           on_select = self.controller.leggi_genere)
 
         self.fil_row = ft.Row([self.txt_filtri, self.dropdown_biblioteca, self.dropdown_genere],
                               alignment = ft.MainAxisAlignment.CENTER)
@@ -52,10 +57,16 @@ class View:
         # Sezione 3: Libri
         self.txt_libri = ft.Text("Premi per visualizzare i libri filtrati: ", size = 15)
 
-        self.but = ft.Button(content="Mostra libri")
+        self.but = ft.Button(content="Mostra libri",
+                             on_click = self.controller.handler_libri)
 
         self.books_row = ft.Row([self.txt_libri, self.but],
                                 alignment = ft.MainAxisAlignment.CENTER)
+
+        self.container = ft.Container(height = 10)
+
+        self.listview = ft.ListView(expand = True,
+                                    spacing = 10)
 
         # --- Toggle Tema ---
         self.toggle_cambia_tema = ft.Switch(label="Tema scuro", value=True, on_change=self.cambia_tema)
@@ -75,6 +86,8 @@ class View:
 
             # Sezione 3: Libri
             self.books_row,
+            self.container,
+            self.listview
         )
 
         self.page.scroll = "adaptive"

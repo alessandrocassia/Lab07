@@ -17,7 +17,7 @@ class Libro:
         return isinstance(other, Libro) and self.id == other.id
 
     def __str__(self):
-        return (f"{self.id} | {self.titolo} | Autore: {self.autore} | Genere: {self.genere} | "
+        return (f"id: {self.id} | Titolo: {self.titolo} | Autore: {self.autore} | Genere: {self.genere} | "
                 f"Anno: {self.anno_pubblicazione} | Biblioteca: {self.id_biblioteca}")
 
     def __repr__(self):

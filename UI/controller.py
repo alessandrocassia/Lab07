@@ -42,7 +42,37 @@ class Controller:
         self._view.update()
 
     # CALLBACKS DROPDOWN
-    # TODO
+    def leggi_biblioteca(self, e):
+        self.biblioteca_selezionata = e.control.value
+
+        return self.biblioteca_selezionata
+
+    def leggi_genere(self, e):
+        self.genere_selezionato = e.control.value
+
+        return self.genere_selezionato
 
     # AZIONE: MOSTRA LIBRI
-    # TODO
+    def handler_libri(self, e):
+        self._view.clean()
+
+        if self.biblioteca_selezionata == "Nessun filtro":
+            self.biblioteca_selezionata = None
+
+        if self.genere_selezionato == "Nessun filtro":
+            self.genere_selezionato = None
+
+        libri_filtrati = self._model.get_libri_filtrati(self.biblioteca_selezionata, self.genere_selezionato)
+
+        if len(libri_filtrati) == 0:
+            self._view.show_alert("Non è stato trovato alcun libro corrispondente ai filtri applicati")
+
+        else:
+            listview = self._view.listview
+            for libro in libri_filtrati:
+                testo_libro = ft.Text(str(libro))
+                listview.controls.append(testo_libro)
+
+        self._view.update()
+        self._view.update()
+
