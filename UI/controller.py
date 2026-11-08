@@ -27,7 +27,7 @@ class Controller:
         for biblioteca in biblioteche:
             dd_biblioteca.options.append(ft.DropdownOption(key = str(biblioteca.id), text = biblioteca.nome))
 
-        print("opzioni biblioteche aggiunte")
+        #print("opzioni biblioteche aggiunte")
         self._view.update()
 
     def popola_genere_dropdown(self):
@@ -38,7 +38,7 @@ class Controller:
         for genere in generi:
             dd_genere.options.append(ft.DropdownOption(key = genere, text = genere))
 
-        print("opzioni generi aggiunte")
+        #print("opzioni generi aggiunte")
         self._view.update()
 
     # CALLBACKS DROPDOWN
